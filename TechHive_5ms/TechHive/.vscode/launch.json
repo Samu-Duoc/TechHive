@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-TechHiveApplication<TechHive>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.TechHive.TechHiveApplication",
+            "projectName": "TechHive",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
