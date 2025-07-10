@@ -1,0 +1,49 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Application",
+            "request": "launch",
+            "mainClass": "com.TechHive.Auth.Application",
+            "projectName": "com.TechHive.Auth"
+        },
+        {
+            "type": "java",
+            "name": "Application(1)",
+            "request": "launch",
+            "mainClass": "com.TechHive.Envio.Application",
+            "projectName": "com.TechHive.Envio"
+        },
+        {
+            "type": "java",
+            "name": "Application(2)",
+            "request": "launch",
+            "mainClass": "com.TechHive.Inventario.Application",
+            "projectName": "com.TechHive.Inventario"
+        },
+        {
+            "type": "java",
+            "name": "Application(3)",
+            "request": "launch",
+            "mainClass": "com.TechHive.Pedido.Application",
+            "projectName": "com.TechHive.Pedido"
+        },
+        {
+            "type": "java",
+            "name": "Application(4)",
+            "request": "launch",
+            "mainClass": "com.TechHive.Usuario.Application",
+            "projectName": "com.TechHive.Usuario"
+        }
+    ]
+}

@@ -21,14 +21,19 @@ public class DataLoader implements CommandLineRunner {
         Faker faker = new Faker();
         
 
-        // Genera 5 registros de usuarios Auth con datos aleatorios
+        // Genera 10 registros de usuarios Auth con datos aleatorios
         for (int i = 0; i < 10; i++) {
             Auth auth = new Auth();
             auth.setId((long) (i + 1));
             auth.setCorreo(faker.internet().emailAddress());
-            auth.setPassword("password123");
+            auth.setPassword(generateRandomPassword(faker)); // Contraseña aleatoria
             auth.setRol(faker.options().option("CLIENTE", "ADMINISTRADOR", "VENDEDOR")); // Rol aleatorio
             authRepository.save(auth);
         }
+    }
+    
+    // Método para generar contraseña aleatoria
+    private String generateRandomPassword(Faker faker) {
+        return faker.internet().password(8, 16, true, true, true);
     }
 }

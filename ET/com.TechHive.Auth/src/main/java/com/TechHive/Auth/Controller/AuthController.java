@@ -2,8 +2,8 @@ package com.TechHive.Auth.Controller;
 
 import com.TechHive.Auth.Model.Auth;
 import com.TechHive.Auth.Service.AuthService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,14 +30,15 @@ public class AuthController {
         return authService.findById(id);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<Auth> register(@RequestBody Auth request) {
-        Auth response = authService.save(request);
-        return ResponseEntity.ok(response);
+    
+    @PutMapping("/{id}")
+    public Auth updateAuth(@PathVariable Long id, @RequestBody Auth auth){
+        auth.setId(id);
+        return authService.save(auth);
     }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAuth(@PathVariable Long id) {
+    public void deleteAuth(@PathVariable Long id) {
         authService.deleteById(id);
-        return ResponseEntity.noContent().build();
     }
 }
