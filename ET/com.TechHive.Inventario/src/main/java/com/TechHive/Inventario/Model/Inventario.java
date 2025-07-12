@@ -1,12 +1,10 @@
 package com.TechHive.Inventario.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Size;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "inventario")
@@ -15,16 +13,19 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 
 public class Inventario {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     private String nombreProducto;
+    
     private String descripcion;
-    @Size(max = 5, message = "El stock no debe tener más de 5 dígitos")
+    
+    @Size(min = 1, max = 100)
     private int stock;
+    
     private String categoria;
+    
     private double precio;
-
-
-
-
 }

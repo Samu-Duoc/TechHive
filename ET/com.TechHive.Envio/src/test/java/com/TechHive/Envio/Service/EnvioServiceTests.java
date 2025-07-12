@@ -98,13 +98,21 @@ public class EnvioServiceTests {
      //Prueba que el método update del servicio actualice el estado de un envío.
     @Test
     public void testUpdateEstado() {
+        Long id = 1L;
         Envio envio = createEnvio();
-        envio.setEstado("Entregado");
-        when(envioRepository.save(envio)).thenReturn(envio);
+        Envio envioActualizado = createEnvio();
+        envioActualizado.setEstado("Entregado");
+        
+        // Mock para findById
+        when(envioRepository.findById(id)).thenReturn(Optional.of(envio));
+        // Mock para save
+        when(envioRepository.save(any(Envio.class))).thenReturn(envioActualizado);
+        
         // El método update debe estar implementado en EnvioService
-        Envio updatedEnvio = envioService.update(envio);
+        Envio updatedEnvio = envioService.update(envioActualizado);
         assertNotNull(updatedEnvio);
         assertEquals("Entregado", updatedEnvio.getEstado());
+        assertEquals(id, updatedEnvio.getId());
     }
 
     private Envio createEnvio() {

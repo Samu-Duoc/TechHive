@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 
-@Profile("dev")
+@Profile("test")
 @Component
 
 public class DataLoader implements CommandLineRunner {
@@ -20,6 +20,8 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        System.out.println("🔄 DataLoader ejecutándose - Cargando datos de prueba...");
+        
         Faker faker = new Faker();
 
         // Genera 10 registros de inventario con datos aleatorios y realistas
@@ -30,9 +32,11 @@ public class DataLoader implements CommandLineRunner {
             inventario.setDescripcion(faker.lorem().sentence(8, 3));
             inventario.setCategoria(faker.commerce().department());
             inventario.setPrecio(faker.number().randomDouble(2, 10, 5000));
-            inventario.setStock(faker.number().numberBetween(1, 99999));
+            inventario.setStock(faker.number().numberBetween(1, 100)); // Ajustado al rango de validación
             inventarioRepository.save(inventario);
         }
+        
+        System.out.println("✅ DataLoader completado - 10 productos agregados al inventario");
     }
 
 }

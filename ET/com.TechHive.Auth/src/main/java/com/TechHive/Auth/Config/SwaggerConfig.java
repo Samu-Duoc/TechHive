@@ -17,3 +17,4 @@ public class SwaggerConfig {
                         .description("Documentación de la API de Auth"));
     }
 }
+

@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -28,7 +29,7 @@ public class EnvioControllerTests {
     @Autowired
     private ObjectMapper objectMapper; // Para convertir objetos a JSON
 
-    @Autowired
+    @MockBean
     private EnvioService envioService; // Servicio a probar, simulado con Mockito
 
     private Envio envio; // Objeto Envio para las pruebas
@@ -68,7 +69,6 @@ public class EnvioControllerTests {
                 .andExpect(jsonPath("$.id").value(envio.getId()))
                 .andExpect(jsonPath("$.estado").value(envio.getEstado()));
     }
-
     // Test para verificar el método save
     @Test
     public void testSave() throws Exception {
@@ -82,5 +82,4 @@ public class EnvioControllerTests {
                 .andExpect(jsonPath("$.id").value(envio.getId()))
                 .andExpect(jsonPath("$.estado").value(envio.getEstado()));
     }
-
 }

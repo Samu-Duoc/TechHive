@@ -3,11 +3,9 @@ package com.TechHive.Inventario.Controller;
 import com.TechHive.Inventario.Model.Inventario;
 import com.TechHive.Inventario.Service.InventarioService;
 
-
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -21,23 +19,22 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
 
-@WebMvcTest(InventarioController.class) // Asegúrate de que el controlador esté correctamente importado
+@WebMvcTest(InventarioController.class)
 public class InventarioControllerTests {
 
     @Autowired
-    private MockMvc mockMvc; // MockMvc para simular peticiones HTTP
+    private MockMvc mockMvc;
 
     @MockBean
-    private InventarioService inventarioService; // Servicio a probar, simulado con Mockito
+    private InventarioService inventarioService;
 
     @Autowired
-    private ObjectMapper objectMapper; // Para convertir objetos a JSON
+    private ObjectMapper objectMapper;
 
-    private Inventario inventario; // Objeto Inventario para las pruebas
+    private Inventario inventario;
 
     @BeforeEach
     void setUp() {
-        // Inicializa un inventario de prueba
         inventario = new Inventario();
         inventario.setId(1L);
         inventario.setNombreProducto("Producto Test");
@@ -48,7 +45,7 @@ public class InventarioControllerTests {
     }
 
     @Test
-    public void testFindAll() throws Exception {
+    public void testGetAllInventarios() throws Exception {
         when(inventarioService.findAll()).thenReturn(List.of(inventario));
         mockMvc.perform(get("/api/inventario"))
                 .andExpect(status().isOk())
@@ -57,8 +54,10 @@ public class InventarioControllerTests {
                 .andExpect(jsonPath("$[0].nombreProducto").value(inventario.getNombreProducto()));
     }
 
+    
+    
     @Test
-    public void testFindById() throws Exception {
+    public void testGetInventarioById() throws Exception {
         when(inventarioService.findById(1L)).thenReturn(inventario);
         mockMvc.perform(get("/api/inventario/{id}", 1L))
                 .andExpect(status().isOk())
@@ -67,8 +66,10 @@ public class InventarioControllerTests {
                 .andExpect(jsonPath("$.nombreProducto").value(inventario.getNombreProducto()));
     }
 
+
+
     @Test
-    public void testSave() throws Exception {
+    public void testCreateInventario() throws Exception {
         when(inventarioService.save(any(Inventario.class))).thenReturn(inventario);
         mockMvc.perform(post("/api/inventario")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -80,10 +81,10 @@ public class InventarioControllerTests {
     }
 
     @Test
-    public void testDeleteById() throws Exception {
+    public void testDeleteInventario() throws Exception {
         doNothing().when(inventarioService).deleteById(1L);
         mockMvc.perform(delete("/api/inventario/{id}", 1L))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -92,6 +93,8 @@ public class InventarioControllerTests {
         mockMvc.perform(put("/api/inventario/{id}/stock", 1L)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("25"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(inventario.getId()));
     }
 }

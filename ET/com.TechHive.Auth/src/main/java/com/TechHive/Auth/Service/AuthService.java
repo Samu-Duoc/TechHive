@@ -25,6 +25,6 @@ public class AuthService {
     }
 
     public void deleteById(Long id) {
-        authRepository.findById(id);
+        authRepository.deleteById(id);
     }
 }

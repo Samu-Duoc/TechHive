@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,8 +33,9 @@ public class EnvioController {
     }
 
     @PostMapping
-    public Envio createEnvio(@RequestBody Envio envio) {
-        return envioService.save(envio);
+    public ResponseEntity<Envio> createEnvio(@RequestBody Envio envio) {
+        Envio savedEnvio = envioService.save(envio);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedEnvio);
     }
 
     @PutMapping("/{id}")
